@@ -26,8 +26,6 @@ import (
 
 	"github.com/gempir/go-twitch-irc/v3"
 	"github.com/vikpe/twitch-chatbot"
-	"github.com/vikpe/twitch-chatbot"
-	"github.com/vikpe/twitch-chatbot"
 )
 
 func RunChatbot() {
