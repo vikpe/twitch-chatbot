@@ -1,4 +1,4 @@
-package bot
+package chatbot
 
 import (
 	"fmt"
@@ -8,27 +8,26 @@ import (
 	"time"
 
 	"github.com/gempir/go-twitch-irc/v3"
-	"github.com/vikpe/twitch-chatbot/command"
 )
 
-type Bot struct {
+type Chatbot struct {
 	client          *twitch.Client
 	channel         string
-	commandHandlers map[string]command.Handler
+	commandHandlers map[string]CommandHandler
 	stopChan        chan os.Signal
 	OnStarted       func()
 	OnConnected     func()
 	OnStopped       func(os.Signal)
 }
 
-func New(username string, oauth string, channel string, commandPrefix rune) *Bot {
+func NewChatbot(username string, oauth string, channel string, commandPrefix rune) *Chatbot {
 	client := twitch.NewClient(username, oauth)
 	client.Join(channel)
 
-	bot := Bot{
+	bot := Chatbot{
 		client:          client,
 		channel:         channel,
-		commandHandlers: make(map[string]command.Handler, 0),
+		commandHandlers: make(map[string]CommandHandler, 0),
 		OnStarted:       func() {},
 		OnConnected:     func() {},
 		OnStopped:       func(os.Signal) {},
@@ -39,7 +38,7 @@ func New(username string, oauth string, channel string, commandPrefix rune) *Bot
 			return
 		}
 
-		cmd, err := command.NewFromMessage(commandPrefix, msg.Message)
+		cmd, err := NewCommandFromMessage(commandPrefix, msg.Message)
 
 		if err != nil {
 			return
@@ -55,19 +54,19 @@ func New(username string, oauth string, channel string, commandPrefix rune) *Bot
 	return &bot
 }
 
-func (b *Bot) AddCommand(name string, handler command.Handler) {
+func (b *Chatbot) AddCommand(name string, handler CommandHandler) {
 	b.commandHandlers[name] = handler
 }
 
-func (b *Bot) Reply(msg twitch.PrivateMessage, replyText string) {
+func (b *Chatbot) Reply(msg twitch.PrivateMessage, replyText string) {
 	b.client.Reply(msg.Channel, msg.ID, replyText)
 }
 
-func (b *Bot) Say(text string) {
+func (b *Chatbot) Say(text string) {
 	b.client.Say(b.channel, text)
 }
 
-func (b *Bot) Start() {
+func (b *Chatbot) Start() {
 	b.OnStarted()
 
 	b.stopChan = make(chan os.Signal, 1)
@@ -85,7 +84,7 @@ func (b *Bot) Start() {
 	b.OnStopped(sig)
 }
 
-func (b *Bot) Stop() {
+func (b *Chatbot) Stop() {
 	if b.stopChan == nil {
 		return
 	}

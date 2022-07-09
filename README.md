@@ -25,9 +25,9 @@ import (
 	"os"
 
 	"github.com/gempir/go-twitch-irc/v3"
-	"github.com/vikpe/twitch-chatbot/bot"
-	"github.com/vikpe/twitch-chatbot/command"
-	"github.com/vikpe/twitch-chatbot/usr"
+	"github.com/vikpe/twitch-chatbot"
+	"github.com/vikpe/twitch-chatbot"
+	"github.com/vikpe/twitch-chatbot"
 )
 
 func RunChatbot() {
@@ -37,7 +37,7 @@ func RunChatbot() {
 	channel := "channel_name"
 	commandPrefix := '!'
 
-	myBot := bot.New(username, oauth, channel, commandPrefix)
+	myBot := chatbot.NewChatbot(username, oauth, channel, commandPrefix)
 
 	// event callbacks
 	myBot.OnStarted = func() { fmt.Println("chatbot started") }
@@ -47,16 +47,16 @@ func RunChatbot() {
 	}
 
 	// command handlers
-	myBot.AddCommand("hello", func(cmd command.Command, msg twitch.PrivateMessage) {
+	myBot.AddCommand("hello", func(cmd chatbot.Command, msg twitch.PrivateMessage) {
 		myBot.Reply(msg, "world!")
 	})
 
-	myBot.AddCommand("test", func(cmd command.Command, msg twitch.PrivateMessage) {
+	myBot.AddCommand("test", func(cmd chatbot.Command, msg twitch.PrivateMessage) {
 		myBot.Say(fmt.Sprintf("%s called the test command using args %s", msg.User.Name, cmd.ArgsToString()))
 	})
 
-	myBot.AddCommand("mod_only", func(cmd command.Command, msg twitch.PrivateMessage) {
-		if !usr.IsBroadcaster(msg.User) {
+	myBot.AddCommand("mod_only", func(cmd chatbot.Command, msg twitch.PrivateMessage) {
+		if !chatbot.IsBroadcaster(msg.User) {
 			myBot.Reply(msg, "mod_only is only allowed by moderators.")
 			return
 		}

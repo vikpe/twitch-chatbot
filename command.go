@@ -1,4 +1,4 @@
-package command
+package chatbot
 
 import (
 	"errors"
@@ -13,16 +13,16 @@ type Command struct {
 	Args []string
 }
 
-type Handler func(cmd Command, msg twitch.PrivateMessage)
+type CommandHandler func(cmd Command, msg twitch.PrivateMessage)
 
-func New(name string, args ...string) Command {
+func NewCommand(name string, args ...string) Command {
 	return Command{
 		Name: name,
 		Args: args,
 	}
 }
 
-func NewFromMessage(prefix rune, text string) (Command, error) {
+func NewCommandFromMessage(prefix rune, text string) (Command, error) {
 	if !IsCommand(prefix, text) {
 		return Command{}, errors.New("unable to parse command call")
 	}
@@ -31,7 +31,7 @@ func NewFromMessage(prefix rune, text string) (Command, error) {
 	parts := strings.FieldsFunc(txt, unicode.IsSpace)
 	name := parts[0]
 	args := parts[1:]
-	return New(name, args...), nil
+	return NewCommand(name, args...), nil
 }
 
 func (c Command) ArgsToString() string {

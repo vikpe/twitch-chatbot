@@ -1,4 +1,4 @@
-package usr
+package chatbot
 
 import "github.com/gempir/go-twitch-irc/v3"
 
