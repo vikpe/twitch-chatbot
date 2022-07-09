@@ -79,7 +79,7 @@ func TestNewCommandFromMessage(t *testing.T) {
 	})
 }
 
-func BenchmarkNewCommandFromText(b *testing.B) {
+func BenchmarkNewCommandFromMessage(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
 
