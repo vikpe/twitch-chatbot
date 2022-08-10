@@ -77,6 +77,7 @@ func RunChatbot() {
 | `Say(text string)`                                   |
 | `Reply(msg twitch.PrivateMessage, replyText string)` |
 | `AddCommand(name string, handler CommandHandler)`    |
+| `GetCommands(sep string)`                            |
 
 ## Callback methods
 
