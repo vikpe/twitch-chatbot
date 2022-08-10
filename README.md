@@ -87,3 +87,11 @@ func RunChatbot() {
 | `OnConnected()`                                            |
 | `OnStopped(os.Signal)`                                     |
 | `OnUnknownCommand(cmd Command, msg twitch.PrivateMessage)` |
+
+**`OnUnknownCommand`** defaults to:
+```go
+func(cmd Command, msg twitch.PrivateMessage) {
+    replyMessage := fmt.Sprintf(`unknown command "%s". available commands: %s`, cmd.Name, bot.GetCommands(", "))
+    bot.Reply(msg, replyMessage)
+}
+```
