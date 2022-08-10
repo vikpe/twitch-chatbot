@@ -67,3 +67,22 @@ func RunChatbot() {
 	myBot.Start() // blocking operation
 }
 ```
+
+## Methods
+
+|                                                      |
+|------------------------------------------------------|
+| `Start()`                                            |
+| `Stop()`                                             |
+| `Say(text string)`                                   |
+| `Reply(msg twitch.PrivateMessage, replyText string)` |
+| `AddCommand(name string, handler CommandHandler)`    |
+
+## Callback methods
+
+|                                                            |
+|------------------------------------------------------------|
+| `OnStarted()`                                              |
+| `OnConnected()`                                            |
+| `OnStopped(os.Signal)`                                     |
+| `OnUnknownCommand(cmd Command, msg twitch.PrivateMessage)` |
