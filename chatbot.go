@@ -12,13 +12,14 @@ import (
 )
 
 type Chatbot struct {
-	client          *twitch.Client
-	channel         string
-	commandHandlers map[string]CommandHandler
-	stopChan        chan os.Signal
-	OnStarted       func()
-	OnConnected     func()
-	OnStopped       func(os.Signal)
+	client           *twitch.Client
+	channel          string
+	commandHandlers  map[string]CommandHandler
+	stopChan         chan os.Signal
+	OnStarted        func()
+	OnConnected      func()
+	OnStopped        func(os.Signal)
+	OnUnknownCommand CommandHandler
 }
 
 func NewChatbot(username string, oauth string, channel string, commandPrefix rune) *Chatbot {
@@ -32,6 +33,11 @@ func NewChatbot(username string, oauth string, channel string, commandPrefix run
 		OnStarted:       func() {},
 		OnConnected:     func() {},
 		OnStopped:       func(os.Signal) {},
+	}
+
+	bot.OnUnknownCommand = func(cmd Command, msg twitch.PrivateMessage) {
+		replyMessage := fmt.Sprintf(`unknown command "%s". available commands: %s`, cmd.Name, bot.GetCommands(", "))
+		bot.Reply(msg, replyMessage)
 	}
 
 	client.OnPrivateMessage(func(msg twitch.PrivateMessage) {
@@ -48,7 +54,7 @@ func NewChatbot(username string, oauth string, channel string, commandPrefix run
 		if cmdHandler, ok := bot.commandHandlers[cmd.Name]; ok {
 			cmdHandler(cmd, msg)
 		} else {
-			bot.Reply(msg, fmt.Sprintf(`unknown command "%s".`, cmd.Name))
+			bot.OnUnknownCommand(cmd, msg)
 		}
 	})
 
