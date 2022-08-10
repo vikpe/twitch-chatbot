@@ -1,4 +1,4 @@
-# twitch-chatbot
+# twitch-chatbot [![test](https://github.com/vikpe/twitch-chatbot/actions/workflows/test.yml/badge.svg)](https://github.com/vikpe/twitch-chatbot/actions/workflows/test.yml)
 
 > Twitch chatbot in Go (Golang)
 
