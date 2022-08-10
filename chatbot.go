@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -56,6 +57,16 @@ func NewChatbot(username string, oauth string, channel string, commandPrefix run
 
 func (b *Chatbot) AddCommand(name string, handler CommandHandler) {
 	b.commandHandlers[name] = handler
+}
+
+func (b *Chatbot) GetCommands(sep string) string {
+	var commands []string
+
+	for k := range b.commandHandlers {
+		commands = append(commands, k)
+	}
+
+	return strings.Join(commands, sep)
 }
 
 func (b *Chatbot) Reply(msg twitch.PrivateMessage, replyText string) {
