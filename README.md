@@ -88,7 +88,7 @@ func RunChatbot() {
 | `AddCommand(name string, handler CommandHandler)`    |
 | `GetCommands(sep string)`                            |
 
-## Callback methods
+### Callback methods
 
 |                                                            |
 |------------------------------------------------------------|
@@ -105,3 +105,11 @@ replyMessage := fmt.Sprintf(`unknown command "%s". available commands: %s`, cmd.
 bot.Reply(msg, replyMessage)
 }
 ```
+
+### User methods
+
+|                                                      |
+|------------------------------------------------------|
+| `IsBroadcaster(user twitch.User)`                    |
+| `IsModerator(user twitch.User)`                      |
+| `IsSubscriber(user twitch.User)`                     |
