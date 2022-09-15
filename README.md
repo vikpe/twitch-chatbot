@@ -54,14 +54,23 @@ func RunChatbot() {
 	})
 
 	myBot.AddCommand("mod_only", func(cmd chatbot.Command, msg twitch.PrivateMessage) {
-		if !chatbot.IsBroadcaster(msg.User) {
+		if !chatbot.IsModerator(msg.User) {
 			myBot.Reply(msg, "mod_only is only allowed by moderators.")
 			return
 		}
 
 		myBot.Say(fmt.Sprintf("%s called the mod_only command", msg.User.Name))
 	})
-	
+
+	myBot.AddCommand("sub_only", func(cmd chatbot.Command, msg twitch.PrivateMessage) {
+		if !chatbot.IsSubscriber(msg.User) {
+			myBot.Reply(msg, "sub_only is only allowed by subscriber.")
+			return
+		}
+
+		myBot.Say(fmt.Sprintf("%s called the sub_only command", msg.User.Name))
+	})
+
 	fmt.Println(myBot.GetCommands(", ")) // "hello, test, mod_only"
 
 	myBot.Start() // blocking operation
@@ -89,9 +98,10 @@ func RunChatbot() {
 | `OnUnknownCommand(cmd Command, msg twitch.PrivateMessage)` |
 
 **`OnUnknownCommand`** defaults to:
+
 ```go
 func(cmd Command, msg twitch.PrivateMessage) {
-    replyMessage := fmt.Sprintf(`unknown command "%s". available commands: %s`, cmd.Name, bot.GetCommands(", "))
-    bot.Reply(msg, replyMessage)
+replyMessage := fmt.Sprintf(`unknown command "%s". available commands: %s`, cmd.Name, bot.GetCommands(", "))
+bot.Reply(msg, replyMessage)
 }
 ```
