@@ -64,7 +64,7 @@ func RunChatbot() {
 
 	myBot.AddCommand("sub_only", func(cmd chatbot.Command, msg twitch.PrivateMessage) {
 		if !chatbot.IsSubscriber(msg.User) {
-			myBot.Reply(msg, "sub_only is only allowed by subscriber.")
+			myBot.Reply(msg, "sub_only is only allowed by subscribers.")
 			return
 		}
 
