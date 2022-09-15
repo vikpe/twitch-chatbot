@@ -71,7 +71,7 @@ func RunChatbot() {
 		myBot.Say(fmt.Sprintf("%s called the sub_only command", msg.User.Name))
 	})
 
-	fmt.Println(myBot.GetCommands(", ")) // "hello, test, mod_only"
+	fmt.Println(myBot.GetCommands(", ")) // "hello, test, mod_only, sub_only"
 
 	myBot.Start() // blocking operation
 }
