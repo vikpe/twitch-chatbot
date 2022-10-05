@@ -10,8 +10,9 @@ import (
 
 func TestChatbot_GetCommands(t *testing.T) {
 	bot := chatbot.NewChatbot("foo", "oauth:bar", "baz", '!')
-	bot.AddCommand("test1", func(cmd chatbot.Command, msg twitch.PrivateMessage) {})
-	bot.AddCommand("test2", func(cmd chatbot.Command, msg twitch.PrivateMessage) {})
+	bot.AddCommand("gamma", func(cmd chatbot.Command, msg twitch.PrivateMessage) {})
+	bot.AddCommand("alpha", func(cmd chatbot.Command, msg twitch.PrivateMessage) {})
+	bot.AddCommand("beta", func(cmd chatbot.Command, msg twitch.PrivateMessage) {})
 
-	assert.Equal(t, "test1, test2", bot.GetCommands(", "))
+	assert.Equal(t, "alpha, beta, gamma", bot.GetCommands(", "))
 }

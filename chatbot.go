@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"sort"
 	"strings"
 	"syscall"
 	"time"
@@ -71,6 +72,8 @@ func (b *Chatbot) GetCommands(sep string) string {
 	for k := range b.commandHandlers {
 		commands = append(commands, k)
 	}
+
+	sort.Strings(commands)
 
 	return strings.Join(commands, sep)
 }
