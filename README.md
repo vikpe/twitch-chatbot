@@ -18,7 +18,7 @@ go get github.com/vikpe/twitch-chatbot
 
 ```go
 
-package bot_test
+package main
 
 import (
 	"fmt"
@@ -28,7 +28,7 @@ import (
 	chatbot "github.com/vikpe/twitch-chatbot"
 )
 
-func RunChatbot() {
+func main() {
 	// init
 	username := "bot_username"
 	oauth := "oauth:bbbbbbbbbbbbb"
