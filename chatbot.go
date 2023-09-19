@@ -42,7 +42,9 @@ func NewChatbot(username string, oauth string, channel string, commandPrefix run
 	}
 
 	client.OnPrivateMessage(func(msg twitch.PrivateMessage) {
-		if msg.Channel != channel {
+		isCurrentChannel := strings.EqualFold(msg.Channel, channel)
+
+		if !isCurrentChannel {
 			return
 		}
 
