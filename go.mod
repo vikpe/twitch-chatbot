@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/gempir/go-twitch-irc/v4 v4.0.0
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.4
 )
 
 require (
