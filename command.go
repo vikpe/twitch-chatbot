@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/gempir/go-twitch-irc/v3"
+	"github.com/gempir/go-twitch-irc/v4"
 )
 
 type Command struct {

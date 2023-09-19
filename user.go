@@ -1,6 +1,6 @@
 package chatbot
 
-import "github.com/gempir/go-twitch-irc/v3"
+import "github.com/gempir/go-twitch-irc/v4"
 
 func IsBroadcaster(user twitch.User) bool {
 	return hasBadge(user, "broadcaster")

@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gempir/go-twitch-irc/v3"
+	"github.com/gempir/go-twitch-irc/v4"
 	chatbot "github.com/vikpe/twitch-chatbot"
 )
 

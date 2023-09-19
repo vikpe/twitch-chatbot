@@ -3,7 +3,7 @@ module github.com/vikpe/twitch-chatbot
 go 1.18
 
 require (
-	github.com/gempir/go-twitch-irc/v3 v3.2.0
+	github.com/gempir/go-twitch-irc/v4 v4.0.0
 	github.com/stretchr/testify v1.8.0
 )
 
